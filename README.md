@@ -32,6 +32,22 @@ From the admin dashboard you can manage:
 Changes save instantly and appear on the live site right away — no deploy or
 code change needed.
 
+## Email notifications for new appointment/ambulance requests
+
+By default, form submissions only show up in `/admin/inquiries` — nobody is
+notified automatically. To get an email the moment someone submits a form:
+
+1. Sign up at [resend.com](https://resend.com) (free tier) and create an API key.
+2. In `.env`, set:
+   - `RESEND_API_KEY` — the key from Resend
+   - `NOTIFY_EMAIL` — the inbox that should receive alerts (e.g. your front-desk email)
+   - `NOTIFY_FROM_EMAIL` — optional; leave blank to send from Resend's shared test
+     address, or set this once you've verified your own domain in Resend
+3. Restart the server. New submissions will email `NOTIFY_EMAIL`, with ambulance
+   requests marked urgent in the subject line.
+
+Without these set, the site works exactly the same — submissions just aren't emailed.
+
 ## Database
 
 Content is stored in SQLite at `prisma/dev.db` (ignored by git). To reset or

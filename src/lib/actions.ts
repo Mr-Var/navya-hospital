@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { prisma } from "./prisma";
 import { revalidatePath } from "next/cache";
+import { notifyNewInquiry } from "./email";
 
 const inquirySchema = z.object({
   type: z.enum(["general", "appointment", "ambulance"]),
@@ -32,8 +33,10 @@ export async function submitInquiry(
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid submission" };
   }
 
-  await prisma.inquiry.create({ data: parsed.data });
+  const inquiry = await prisma.inquiry.create({ data: parsed.data });
   revalidatePath("/admin/inquiries");
+
+  await notifyNewInquiry(inquiry);
 
   return { ok: true };
 }
