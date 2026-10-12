@@ -3,6 +3,12 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+  // Only seed an empty database so admin CMS edits survive redeploys.
+  if ((await prisma.siteSettings.count()) > 0) {
+    console.log("Database already seeded, skipping.");
+    return;
+  }
+
   await prisma.siteSettings.upsert({
     where: { id: 1 },
     update: {},
