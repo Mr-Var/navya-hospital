@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Department {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  summary     String
+  description String
+  icon        String   @default("stethoscope")
+  waitMinutes Int      @default(15)
+  bedsTotal   Int      @default(20)
+  bedsFree    Int      @default(8)
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  doctors     Doctor[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Doctor {
+  id             String      @id @default(cuid())
+  name           String
+  designation    String
+  departmentId   String?
+  department     Department? @relation(fields: [departmentId], references: [id])
+  photoUrl       String?
+  experienceYrs  Int         @default(0)
+  qualifications String
+  bio            String
+  available      Boolean     @default(true)
+  order          Int         @default(0)
+  published      Boolean     @default(true)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model HealthPackage {
+  id          String   @id @default(cuid())
+  name        String
+  priceRupees Int
+  description String
+  inclusions  String
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  message   String
+  rating    Int      @default(5)
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Page {
+  slug      String   @id
+  title     String
+  body      String
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSettings {
+  id              Int      @id @default(1)
+  hospitalName    String   @default("Navya Hospital")
+  heroTitle       String   @default("Care that keeps watch, day and night")
+  heroSubtitle    String   @default("A multispecialty hospital serving Visakhapatnam with 24/7 emergency and outpatient care.")
+  phone           String   @default("040 2555 2555")
+  emergencyPhone  String   @default("108")
+  email           String   @default("care@navyahospital.com")
+  address         String   @default("14 Beach Road, Visakhapatnam")
+  opdHours        String   @default("OPD 9:00 AM - 5:00 PM daily")
+  consultations   String   @default("3,20,000+")
+  admissions      String   @default("85,000+")
+  bedsCount       String   @default("450+")
+  livesTouched    String   @default("12,50,000+")
+  updatedAt       DateTime @updatedAt
+}
+
+model Promotion {
+  id         String   @id @default(cuid())
+  title      String
+  subtitle   String
+  imageUrl   String?
+  badge      String?
+  linkUrl    String?
+  linkLabel  String?
+  theme      String   @default("brand")
+  order      Int      @default(0)
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  type      String
+  name      String
+  phone     String
+  email     String?
+  department String?
+  message   String?
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+}
