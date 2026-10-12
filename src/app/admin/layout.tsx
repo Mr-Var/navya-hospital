@@ -25,7 +25,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen bg-[var(--surface-tint)]">
       <aside className="w-56 shrink-0 border-r border-[var(--line)] bg-[var(--surface)] px-4 py-6">
-        <p className="mb-6 px-2 text-sm font-bold text-[var(--brand)]">Navya Hospital Admin</p>
+        <p className="mb-6 px-2 text-sm font-bold text-[var(--brand)]">NGCC Admin</p>
         <nav className="space-y-1 text-sm">
           {NAV.map((item) => (
             <Link

@@ -15,10 +15,11 @@ export default async function EmergencyPage() {
 
       <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1fr]">
         <div className="text-[var(--ink-soft)]">
-          <h2 className="text-xl font-semibold text-[var(--ink)]">Our emergency department</h2>
+          <h2 className="text-xl font-semibold text-[var(--ink)]">Oncology emergencies</h2>
           <p className="mt-3">
-            Navya Hospital&apos;s emergency department is staffed around the clock with emergency physicians,
-            a dedicated trauma bay, and direct access to critical care units.
+            Fever during chemotherapy, severe treatment side effects, or uncontrolled pain are emergencies —
+            call us immediately. Our on-call oncology team is reachable around the clock for patients under
+            active treatment.
           </p>
           <p className="mt-3">
             For critical emergencies, always call {settings.emergencyPhone} rather than using this form —

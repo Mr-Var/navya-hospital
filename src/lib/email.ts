@@ -28,7 +28,7 @@ export async function notifyNewInquiry(inquiry: {
 
   try {
     await resend.emails.send({
-      from: process.env.NOTIFY_FROM_EMAIL || "Navya Hospital Website <onboarding@resend.dev>",
+      from: process.env.NOTIFY_FROM_EMAIL || "Navya Global Cancer Centre Website <onboarding@resend.dev>",
       to,
       subject: `${isUrgent ? "🚨 URGENT — " : ""}New ${label}: ${inquiry.name}`,
       text: [

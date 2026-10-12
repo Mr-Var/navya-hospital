@@ -84,18 +84,18 @@ model Page {
 
 model SiteSettings {
   id              Int      @id @default(1)
-  hospitalName    String   @default("Navya Hospital")
-  heroTitle       String   @default("Care that keeps watch, day and night")
-  heroSubtitle    String   @default("A multispecialty hospital serving Visakhapatnam with 24/7 emergency and outpatient care.")
-  phone           String   @default("040 2555 2555")
+  hospitalName    String   @default("Navya Global Cancer Centre")
+  heroTitle       String   @default("Care beyond cancer")
+  heroSubtitle    String   @default("Dr. Navya's Global Cancer Centre — a unit of Navya Green Hills Hospital — offers complete cancer care in Visakhapatnam.")
+  phone           String   @default("934 746 6135 / 789 302 3838")
   emergencyPhone  String   @default("108")
-  email           String   @default("care@navyahospital.com")
-  address         String   @default("14 Beach Road, Visakhapatnam")
+  email           String   @default("care@navyagcc.com")
+  address         String   @default("D.No. 18-322, Opp. Health City, BRTS Road, Chinnagadili, Visakhapatnam - 530040")
   opdHours        String   @default("OPD 9:00 AM - 5:00 PM daily")
-  consultations   String   @default("3,20,000+")
-  admissions      String   @default("85,000+")
-  bedsCount       String   @default("450+")
-  livesTouched    String   @default("12,50,000+")
+  consultations   String   @default("28,000+")
+  admissions      String   @default("4,500+")
+  bedsCount       String   @default("60+")
+  livesTouched    String   @default("35,000+")
   updatedAt       DateTime @updatedAt
 }
 

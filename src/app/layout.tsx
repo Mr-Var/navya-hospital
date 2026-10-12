@@ -20,8 +20,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Navya Hospital",
-  description: "Multispecialty hospital serving Visakhapatnam with 24/7 emergency and outpatient care.",
+  title: "Navya Global Cancer Centre",
+  description: "Dr. Navya's Global Cancer Centre — complete cancer care in Visakhapatnam, from diagnosis through treatment and recovery.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { savePageAction } from "@/lib/adminActions";
 
 const PAGE_SLUGS = [
-  { slug: "about", fallbackTitle: "About Navya Hospital" },
+  { slug: "about", fallbackTitle: "About Navya Global Cancer Centre" },
   { slug: "facilities", fallbackTitle: "Our Facilities" },
   { slug: "insurance-billing", fallbackTitle: "Insurance & Billing" },
 ];
