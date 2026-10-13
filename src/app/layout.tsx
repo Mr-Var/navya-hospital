@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Lora, Public_Sans, IBM_Plex_Mono } from "next/font/google";
+import { getSettings } from "@/lib/data";
 import "./globals.css";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://ngcc-cancure.com";
 
 const lora = Lora({
   variable: "--font-lora",
@@ -19,10 +22,41 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ["500", "600"],
 });
 
-export const metadata: Metadata = {
-  title: "Navya Global Cancer Centre",
-  description: "Dr. Navya's Global Cancer Centre — complete cancer care in Visakhapatnam, from diagnosis through treatment and recovery.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const title = `${settings.hospitalName} — Cancer Hospital in Visakhapatnam`;
+  const description = settings.heroSubtitle;
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: title,
+      template: `%s | ${settings.hospitalName}`,
+    },
+    description,
+    keywords: [
+      settings.hospitalName,
+      "NGCC",
+      "cancer hospital Visakhapatnam",
+      "oncologist Visakhapatnam",
+      "Navya Green Hills Hospital",
+      "chemotherapy Visakhapatnam",
+    ],
+    openGraph: {
+      title,
+      description,
+      siteName: settings.hospitalName,
+      url: SITE_URL,
+      locale: "en_IN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
