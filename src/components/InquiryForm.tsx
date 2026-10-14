@@ -9,10 +9,14 @@ export function InquiryForm({
   type,
   departments = [],
   submitLabel = "Submit",
+  defaultMessage = "",
+  defaultDepartment = "",
 }: {
   type: "general" | "appointment" | "ambulance";
   departments?: { id: string; name: string }[];
   submitLabel?: string;
+  defaultMessage?: string;
+  defaultDepartment?: string;
 }) {
   const [state, formAction, pending] = useActionState(submitInquiry, initialState);
 
@@ -64,6 +68,7 @@ export function InquiryForm({
           <label className="block text-sm font-medium text-[var(--ink)]">Department</label>
           <select
             name="department"
+            defaultValue={defaultDepartment}
             className="mt-1 w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm focus:border-[var(--brand)] focus:outline-none"
           >
             <option value="">Select a department</option>
@@ -81,6 +86,7 @@ export function InquiryForm({
         <textarea
           name="message"
           rows={3}
+          defaultValue={defaultMessage}
           className="mt-1 w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm focus:border-[var(--brand)] focus:outline-none"
         />
       </div>

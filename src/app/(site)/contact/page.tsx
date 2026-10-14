@@ -1,8 +1,16 @@
 import { getSettings, getDepartments } from "@/lib/data";
 import { InquiryForm } from "@/components/InquiryForm";
 
-export default async function ContactPage() {
-  const [settings, departments] = await Promise.all([getSettings(), getDepartments()]);
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ package?: string }>;
+}) {
+  const [settings, departments, { package: packageName }] = await Promise.all([
+    getSettings(),
+    getDepartments(),
+    searchParams,
+  ]);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
@@ -41,6 +49,7 @@ export default async function ContactPage() {
               type="appointment"
               departments={departments.map((d) => ({ id: d.id, name: d.name }))}
               submitLabel="Request Appointment"
+              defaultMessage={packageName ? `Interested in: ${packageName}` : ""}
             />
           </div>
         </div>

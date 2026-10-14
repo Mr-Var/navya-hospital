@@ -33,13 +33,16 @@ export function DepartmentCard({ department }: { department: Department }) {
 
 export function DoctorCard({ doctor }: { doctor: Doctor & { department?: Department | null } }) {
   return (
-    <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6 shadow-[0_1px_2px_rgba(51,23,44,0.04)] transition-shadow hover:shadow-[0_12px_24px_rgba(51,23,44,0.08)]">
+    <Link
+      href={`/doctors/${doctor.id}`}
+      className="group block rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6 shadow-[0_1px_2px_rgba(51,23,44,0.04)] transition-all duration-200 hover:-translate-y-1 hover:border-[var(--brand)] hover:shadow-[0_12px_24px_rgba(51,23,44,0.1)]"
+    >
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] font-display font-semibold text-[var(--brand)]">
           {doctor.name.charAt(0)}
         </div>
         <div>
-          <p className="font-semibold text-[var(--ink)]">{doctor.name}</p>
+          <p className="font-semibold text-[var(--ink)] group-hover:text-[var(--brand)]">{doctor.name}</p>
           <p className="text-xs text-[var(--ink-soft)]">{doctor.designation}</p>
         </div>
         <span
@@ -55,19 +58,26 @@ export function DoctorCard({ doctor }: { doctor: Doctor & { department?: Departm
         <span>{doctor.department?.name ?? "General"}</span>
         <span>{doctor.experienceYrs}+ yrs experience</span>
       </div>
-    </div>
+      <p className="mt-3 text-xs font-semibold text-[var(--brand)]">View profile &amp; book →</p>
+    </Link>
   );
 }
 
 export function PackageCard({ pkg }: { pkg: HealthPackage }) {
   return (
-    <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6 shadow-[0_1px_2px_rgba(51,23,44,0.04)] transition-shadow hover:shadow-[0_12px_24px_rgba(51,23,44,0.08)]">
+    <div className="flex flex-col rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6 shadow-[0_1px_2px_rgba(51,23,44,0.04)] transition-shadow hover:shadow-[0_12px_24px_rgba(51,23,44,0.08)]">
       <p className="font-semibold text-[var(--ink)]">{pkg.name}</p>
       <p className="mt-2 font-display text-3xl font-bold text-[var(--brand)]">
         ₹{pkg.priceRupees.toLocaleString("en-IN")}
       </p>
       <p className="mt-2 text-sm text-[var(--ink-soft)]">{pkg.description}</p>
       <p className="mt-4 border-t border-[var(--line)] pt-3 text-xs leading-relaxed text-[var(--ink-soft)]">{pkg.inclusions}</p>
+      <Link
+        href={`/contact?package=${encodeURIComponent(pkg.name)}`}
+        className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--brand)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90"
+      >
+        Book this package →
+      </Link>
     </div>
   );
 }

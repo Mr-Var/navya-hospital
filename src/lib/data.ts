@@ -28,6 +28,13 @@ export function getDoctors(onlyPublished = true) {
   });
 }
 
+export function getDoctorById(id: string) {
+  return prisma.doctor.findUnique({
+    where: { id },
+    include: { department: true },
+  });
+}
+
 export function getHealthPackages(onlyPublished = true) {
   return prisma.healthPackage.findMany({
     where: onlyPublished ? { published: true } : undefined,
