@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { randomUUID } from "crypto";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
 import { requireAdmin } from "@/lib/auth";
 
-const MAX_BYTES = 5 * 1024 * 1024;
-const ALLOWED_TYPES: Record<string, string> = {
-  "image/jpeg": "jpg",
-  "image/png": "png",
-  "image/webp": "webp",
-  "image/gif": "gif",
-};
+// Vercel's serverless filesystem is read-only at runtime, so uploads can't be
+// written to disk (that only works in local dev). Instead we encode the image
+// as a base64 data URI and store it directly on the record — no extra storage
+// service to set up. Fine for occasional admin-uploaded images; if this site
+// ever needs heavy photo galleries, switch to Vercel Blob storage instead.
+const MAX_BYTES = 2 * 1024 * 1024;
+const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 
 export async function POST(req: NextRequest) {
   if (!(await requireAdmin())) {
@@ -24,21 +21,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
 
-  const extension = ALLOWED_TYPES[file.type];
-  if (!extension) {
+  if (!ALLOWED_TYPES.has(file.type)) {
     return NextResponse.json({ error: "Only JPG, PNG, WEBP, or GIF images are allowed" }, { status: 400 });
   }
 
   if (file.size > MAX_BYTES) {
-    return NextResponse.json({ error: "Image must be smaller than 5MB" }, { status: 400 });
+    return NextResponse.json({ error: "Image must be smaller than 2MB" }, { status: 400 });
   }
 
-  const uploadsDir = path.join(process.cwd(), "public", "uploads");
-  await mkdir(uploadsDir, { recursive: true });
-
-  const filename = `${randomUUID()}.${extension}`;
   const buffer = Buffer.from(await file.arrayBuffer());
-  await writeFile(path.join(uploadsDir, filename), buffer);
+  const dataUrl = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-  return NextResponse.json({ url: `/uploads/${filename}` });
+  return NextResponse.json({ url: dataUrl });
 }
