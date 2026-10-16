@@ -40,6 +40,26 @@ export default async function ContactPage({
               <dd>{settings.opdHours}</dd>
             </div>
           </dl>
+
+          <div className="mt-6 overflow-hidden rounded-xl border border-[var(--line)]">
+            <iframe
+              title="Map to our location"
+              src={`https://www.google.com/maps?q=${encodeURIComponent(`${settings.hospitalName}, ${settings.address}`)}&output=embed`}
+              width="100%"
+              height="280"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${settings.hospitalName}, ${settings.address}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-block text-sm font-semibold text-[var(--brand)] hover:underline"
+          >
+            Get directions →
+          </a>
         </div>
 
         <div className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
