@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
@@ -34,14 +35,14 @@ export function Header({ hospitalName, emergencyPhone }: { hospitalName: string;
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
-          <span
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-white shadow-[0_4px_10px_-2px_rgba(82,37,70,0.5)]"
-            style={{ background: "linear-gradient(150deg, var(--brand), #2a1424)" }}
-          >
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-          </span>
+          <Image
+            src="/logo-mark.png"
+            alt={`${hospitalName} logo`}
+            width={40}
+            height={40}
+            priority
+            className="h-10 w-10 shrink-0 object-contain"
+          />
           <span className="whitespace-nowrap font-display text-lg font-semibold tracking-tight text-[var(--ink)]">
             {hospitalName}
           </span>
