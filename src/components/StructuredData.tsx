@@ -32,11 +32,19 @@ export function StructuredData({
     },
   };
 
+  // Tells Google the site name to show above the title in search results.
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: hospitalName,
+    alternateName: ["NGCC", "NGCC Can Cure"],
+    url: `${SITE_URL}/`,
+  };
+
   return (
-    <script
-      type="application/ld+json"
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+    </>
   );
 }
