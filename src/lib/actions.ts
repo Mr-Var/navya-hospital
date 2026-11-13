@@ -14,7 +14,9 @@ const inquirySchema = z.object({
   message: z.string().optional(),
 });
 
-export type InquiryActionResult = { ok: true } | { ok: false; error: string };
+export type InquiryActionResult =
+  | { ok: true; name: string; phone: string; department: string | null }
+  | { ok: false; error: string };
 
 export async function submitInquiry(
   _prev: InquiryActionResult | null,
@@ -38,5 +40,5 @@ export async function submitInquiry(
 
   await notifyNewInquiry(inquiry);
 
-  return { ok: true };
+  return { ok: true, name: inquiry.name, phone: inquiry.phone, department: inquiry.department };
 }

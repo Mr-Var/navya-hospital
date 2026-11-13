@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { SITE_URL } from "./seo";
 
 const TYPE_LABELS: Record<string, string> = {
   general: "General / Insurance Callback",
@@ -39,7 +40,7 @@ export async function notifyNewInquiry(inquiry: {
         inquiry.department ? `Department: ${inquiry.department}` : null,
         inquiry.message ? `Message: ${inquiry.message}` : null,
         "",
-        "View and manage in the admin panel: /admin/inquiries",
+        `View and manage in the admin panel: ${SITE_URL}/admin/inquiries`,
       ]
         .filter(Boolean)
         .join("\n"),

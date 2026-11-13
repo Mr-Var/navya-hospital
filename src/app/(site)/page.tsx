@@ -81,9 +81,8 @@ export default async function HomePage() {
       {promotions.length > 0 && (
         <section className="px-4 py-2">
           <div className="mx-auto max-w-6xl">
-            <Reveal>
-              <PromoSlider promotions={promotions} />
-            </Reveal>
+            {/* No fade-in here: the banner is near the top and must always be fully visible. */}
+            <PromoSlider promotions={promotions} />
           </div>
         </section>
       )}
