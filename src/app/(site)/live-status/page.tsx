@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { getDepartments } from "@/lib/data";
+
+export const metadata: Metadata = {
+  title: "Live Wait Times & Bed Availability",
+  description: "Live OPD wait times and bed availability across departments at Navya Global Cancer Centre, Visakhapatnam (Vizag).",
+  alternates: { canonical: "/live-status" },
+};
 
 export default async function LiveStatusPage() {
   const departments = await getDepartments();

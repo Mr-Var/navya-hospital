@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { getHealthPackages } from "@/lib/data";
 import { PackageCard } from "@/components/cards";
+
+export const metadata: Metadata = {
+  title: "Cancer Screening & Health Check-up Packages in Vizag",
+  description: "Cancer screening and health check-up packages at Navya Global Cancer Centre, Visakhapatnam (Vizag). Early detection saves lives.",
+  alternates: { canonical: "/health-packages" },
+};
 
 export default async function HealthPackagesPage() {
   const packages = await getHealthPackages();

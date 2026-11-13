@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getSettings, getDepartments, getTestimonials, getFaqs, getPromotions } from "@/lib/data";
 import { StatsBar } from "@/components/StatsBar";
@@ -5,6 +6,11 @@ import { DepartmentCard, TestimonialCard } from "@/components/cards";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PromoSlider } from "@/components/PromoSlider";
 import { Reveal } from "@/components/Reveal";
+
+export const metadata: Metadata = {
+  description: "Navya Global Cancer Centre (NGCC) in Visakhapatnam (Vizag) — complete cancer care from diagnosis to chemotherapy, cancer surgery, radiation and palliative support. Book an appointment with our oncologists.",
+  alternates: { canonical: "/" },
+};
 
 export default async function HomePage() {
   const [settings, departments, testimonials, faqs, promotions] = await Promise.all([
@@ -93,6 +99,22 @@ export default async function HomePage() {
                 livesTouched: settings.livesTouched,
               }}
             />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="px-4 py-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <Reveal>
+            <h2 className="text-2xl font-bold text-[var(--ink)] sm:text-3xl">
+              Comprehensive Cancer Care in Visakhapatnam (Vizag)
+            </h2>
+            <p className="mt-3 leading-relaxed text-[var(--ink-soft)]">
+              {settings.hospitalName} (NGCC) is a dedicated cancer hospital in Vizag, a unit of Navya Green Hills
+              Hospital. Our oncologists provide diagnosis, chemotherapy, cancer surgery, radiation and palliative care
+              under one roof, so patients across Visakhapatnam and Andhra Pradesh can get complete treatment close to
+              home.
+            </p>
           </Reveal>
         </div>
       </section>

@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { getSettings } from "@/lib/data";
 import { InquiryForm } from "@/components/InquiryForm";
+
+export const metadata: Metadata = {
+  title: "24/7 Emergency & Ambulance — Visakhapatnam (Vizag)",
+  description: "24/7 emergency care and ambulance requests at Navya Global Cancer Centre, Visakhapatnam (Vizag). Call now or request an ambulance online.",
+  alternates: { canonical: "/emergency" },
+};
 
 export default async function EmergencyPage() {
   const settings = await getSettings();

@@ -1,13 +1,39 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { getDoctorById, getDepartments } from "@/lib/data";
+import { notFound, permanentRedirect } from "next/navigation";
+import { getDoctorById, getDoctorBySlug, getDepartments } from "@/lib/data";
+import { doctorPath } from "@/lib/seo";
 import { InquiryForm } from "@/components/InquiryForm";
+
+// The URL segment is the doctor's name slug (e.g. /doctors/dr-navya-reddy).
+// Old links that used the database id still work: they redirect to the slug URL.
+async function resolveDoctor(param: string) {
+  const bySlug = await getDoctorBySlug(param);
+  if (bySlug) return { doctor: bySlug, isLegacyId: false };
+  const byId = await getDoctorById(param);
+  if (byId && byId.published) return { doctor: byId, isLegacyId: true };
+  return null;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const found = await resolveDoctor(id);
+  if (!found) return {};
+  const { doctor } = found;
+  return {
+    title: `${doctor.name} — ${doctor.designation} in Visakhapatnam (Vizag)`,
+    description: `${doctor.name}, ${doctor.designation} (${doctor.qualifications}) at Navya Global Cancer Centre, Visakhapatnam. ${doctor.experienceYrs}+ years of experience. Book an appointment online.`,
+    alternates: { canonical: doctorPath(doctor) },
+  };
+}
 
 export default async function DoctorDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const [doctor, departments] = await Promise.all([getDoctorById(id), getDepartments()]);
+  const [found, departments] = await Promise.all([resolveDoctor(id), getDepartments()]);
 
-  if (!doctor || !doctor.published) notFound();
+  if (!found) notFound();
+  if (found.isLegacyId) permanentRedirect(doctorPath(found.doctor));
+  const { doctor } = found;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">

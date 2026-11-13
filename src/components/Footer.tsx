@@ -20,6 +20,9 @@ export function Footer({
           <p className="text-lg font-semibold text-[var(--bg)]">{hospitalName}</p>
           <p className="mt-2 text-sm text-[var(--bg)]/60">{address}</p>
           <p className="mt-1 text-sm text-[var(--bg)]/60">{opdHours}</p>
+          <p className="mt-3 text-xs text-[var(--bg)]/50">
+            NGCC — cancer hospital &amp; oncology specialists in Visakhapatnam (Vizag), Andhra Pradesh.
+          </p>
         </div>
 
         <div>

@@ -1,4 +1,5 @@
 import { prisma } from "./prisma";
+import { slugify } from "./seo";
 
 export async function getSettings() {
   const settings = await prisma.siteSettings.findUnique({ where: { id: 1 } });
@@ -33,6 +34,16 @@ export function getDoctorById(id: string) {
     where: { id },
     include: { department: true },
   });
+}
+
+/** Finds a published doctor by the name-based URL slug (e.g. "dr-navya-reddy"). */
+export async function getDoctorBySlug(slug: string) {
+  const doctors = await prisma.doctor.findMany({
+    where: { published: true },
+    include: { department: true },
+    orderBy: { order: "asc" },
+  });
+  return doctors.find((d) => slugify(d.name) === slug) ?? null;
 }
 
 export function getHealthPackages(onlyPublished = true) {

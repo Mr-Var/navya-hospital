@@ -1,7 +1,19 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDepartmentBySlug } from "@/lib/data";
 import { DoctorCard } from "@/components/cards";
 import { InquiryForm } from "@/components/InquiryForm";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const department = await getDepartmentBySlug(slug);
+  if (!department || !department.published) return {};
+  return {
+    title: `${department.name} in Visakhapatnam (Vizag)`,
+    description: `${department.summary} ${department.name} at Navya Global Cancer Centre, Visakhapatnam (Vizag). Meet our specialists and book an appointment.`,
+    alternates: { canonical: `/departments/${department.slug}` },
+  };
+}
 
 export default async function DepartmentDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

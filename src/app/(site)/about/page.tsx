@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { getPage, getSettings } from "@/lib/data";
 import { StatsBar } from "@/components/StatsBar";
+
+export const metadata: Metadata = {
+  title: "About Us — Cancer Hospital in Visakhapatnam (Vizag)",
+  description: "Learn about Navya Global Cancer Centre (NGCC), a unit of Navya Green Hills Hospital, providing comprehensive cancer treatment in Visakhapatnam (Vizag), Andhra Pradesh.",
+  alternates: { canonical: "/about" },
+};
 
 export default async function AboutPage() {
   const [page, settings] = await Promise.all([getPage("about"), getSettings()]);

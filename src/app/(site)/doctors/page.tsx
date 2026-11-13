@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { getDoctors, getDepartments } from "@/lib/data";
 import { DoctorCard } from "@/components/cards";
+
+export const metadata: Metadata = {
+  title: "Best Oncologists in Visakhapatnam (Vizag) — Our Cancer Specialists",
+  description: "Meet the oncologists and cancer specialists at Navya Global Cancer Centre (NGCC), Visakhapatnam (Vizag). View profiles and experience, and book an appointment.",
+  alternates: { canonical: "/doctors" },
+};
 
 export default async function DoctorsPage() {
   const [doctors, departments] = await Promise.all([getDoctors(), getDepartments()]);

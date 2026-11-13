@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { getPage } from "@/lib/data";
 import { InquiryForm } from "@/components/InquiryForm";
+
+export const metadata: Metadata = {
+  title: "Insurance & Billing — Cancer Treatment in Vizag",
+  description: "Insurance and billing information for cancer treatment at Navya Global Cancer Centre, Visakhapatnam (Vizag).",
+  alternates: { canonical: "/insurance-billing" },
+};
 
 export default async function InsuranceBillingPage() {
   const page = await getPage("insurance-billing");

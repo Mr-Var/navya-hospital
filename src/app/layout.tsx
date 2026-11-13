@@ -24,8 +24,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
-  const title = `${settings.hospitalName} — Cancer Hospital in Visakhapatnam`;
-  const description = settings.heroSubtitle;
+  const title = `${settings.hospitalName} (NGCC) — Best Cancer Hospital in Visakhapatnam (Vizag)`;
+  const description = `${settings.heroSubtitle} Expert oncologists for chemotherapy, cancer surgery, radiation and palliative care in Vizag.`;
+  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -34,14 +35,21 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${settings.hospitalName}`,
     },
     description,
+    applicationName: settings.hospitalName,
     keywords: [
       settings.hospitalName,
       "NGCC",
-      "cancer hospital Visakhapatnam",
-      "oncologist Visakhapatnam",
+      "NGCC Can Cure",
+      "Navya Hospital",
       "Navya Green Hills Hospital",
+      "cancer hospital Visakhapatnam",
+      "cancer hospital Vizag",
+      "best cancer hospital in Vizag",
+      "oncologist Visakhapatnam",
+      "oncologist Vizag",
       "chemotherapy Visakhapatnam",
     ],
+    ...(googleVerification ? { verification: { google: googleVerification } } : {}),
     openGraph: {
       title,
       description,

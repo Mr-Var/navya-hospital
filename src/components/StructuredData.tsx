@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://ngcc-cancure.com";
+import { SITE_URL } from "@/lib/seo";
 
 export function StructuredData({
   hospitalName,
@@ -15,7 +15,11 @@ export function StructuredData({
     "@context": "https://schema.org",
     "@type": "Hospital",
     name: hospitalName,
+    alternateName: ["NGCC", "NGCC Can Cure", "Navya Hospital", "Navya Green Hills Hospital"],
     url: SITE_URL,
+    logo: `${SITE_URL}/logo-mark.png`,
+    image: `${SITE_URL}/logo-mark.png`,
+    areaServed: ["Visakhapatnam", "Vizag", "Andhra Pradesh"],
     telephone: phone.split("/")[0]?.trim(),
     email,
     medicalSpecialty: "Oncologic",

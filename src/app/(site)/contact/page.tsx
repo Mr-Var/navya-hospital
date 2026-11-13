@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { getSettings, getDepartments } from "@/lib/data";
 import { InquiryForm } from "@/components/InquiryForm";
+
+export const metadata: Metadata = {
+  title: "Contact & Location — NGCC Visakhapatnam (Vizag)",
+  description: "Address, phone numbers, OPD hours and directions to Navya Global Cancer Centre, Chinnagadili, Visakhapatnam (Vizag). Request an appointment or a callback.",
+  alternates: { canonical: "/contact" },
+};
 
 export default async function ContactPage({
   searchParams,

@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { getDepartments } from "@/lib/data";
 import { DepartmentCard } from "@/components/cards";
+
+export const metadata: Metadata = {
+  title: "Cancer Treatment Departments in Visakhapatnam (Vizag)",
+  description: "Cancer treatment departments at Navya Global Cancer Centre, Visakhapatnam (Vizag) — chemotherapy, cancer surgery, radiation and supportive care under one roof.",
+  alternates: { canonical: "/departments" },
+};
 
 export default async function DepartmentsPage() {
   const departments = await getDepartments();

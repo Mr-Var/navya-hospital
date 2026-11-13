@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Department, Doctor, HealthPackage, Testimonial } from "@prisma/client";
 import { DeptIcon } from "./DeptIcon";
+import { doctorPath } from "@/lib/seo";
 
 export function DepartmentCard({ department }: { department: Department }) {
   const occupancy = Math.round(((department.bedsTotal - department.bedsFree) / Math.max(department.bedsTotal, 1)) * 100);
@@ -34,7 +35,7 @@ export function DepartmentCard({ department }: { department: Department }) {
 export function DoctorCard({ doctor }: { doctor: Doctor & { department?: Department | null } }) {
   return (
     <Link
-      href={`/doctors/${doctor.id}`}
+      href={doctorPath(doctor)}
       className="group block rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6 shadow-[0_1px_2px_rgba(51,23,44,0.04)] transition-all duration-200 hover:-translate-y-1 hover:border-[var(--brand)] hover:shadow-[0_12px_24px_rgba(51,23,44,0.1)]"
     >
       <div className="flex items-center gap-3">
